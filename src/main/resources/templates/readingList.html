@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Reading List</title>
 </head>
 <body>
-    <h2>Your Reading List</h2>
+<h2><span th:text="${reader.fullname}">Name</span>'s Reading List</h2>
+
     <div th:unless="${#lists.isEmpty(books)}">
         <dl th:each="book : ${books}">
 
@@ -44,5 +45,10 @@
         <textarea name="description" cols="80" rows="5"></textarea><br />
         <input type="submit" value="Add Book" />
     </form>
+
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout" />
+    </form>
+
 </body>
 </html>

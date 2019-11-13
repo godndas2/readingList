@@ -6,13 +6,21 @@
     <title>Reading List</title>
 </head>
 <body>
+
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout" />
+</form>
+
 <h2><span th:text="${reader.fullname}">Name</span>'s Reading List</h2>
 
     <div th:unless="${#lists.isEmpty(books)}">
         <dl th:each="book : ${books}">
 
             <dt class="bookHeadLine">
-                <span th:text="${book.title}">Title</span> by
+                <a th:href="'http://www.amazon.com/gp/product/'
+                + ${book.isbn}
+                + '/tag=' + ${amazonID}"
+                th:text="${book.title}">Title</a> by
                 <span th:text="${book.author}">Author</span>
                 (ISBN: <span th:text="${book.isbn}">ISBN</span>)
             </dt>
@@ -44,10 +52,6 @@
         <label for="description">Description:</label><br />
         <textarea name="description" cols="80" rows="5"></textarea><br />
         <input type="submit" value="Add Book" />
-    </form>
-
-    <form method="POST" th:action="@{/logout}">
-        <input type="submit" value="Logout" />
     </form>
 
 </body>

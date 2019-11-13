@@ -19,10 +19,12 @@ import java.util.List;
 public class ReadingListController {
 
     private ReadingListRepository readingListRepository;
+    private AmazonProperties amazonProperties;
 
     @Autowired
-    public ReadingListController(ReadingListRepository readingListRepository) {
+    public ReadingListController(ReadingListRepository readingListRepository, AmazonProperties amazonProperties) {
         this.readingListRepository = readingListRepository;
+        this.amazonProperties = amazonProperties;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -33,6 +35,7 @@ public class ReadingListController {
             // key : books 로 Book 목록을 Model 에 추가하고, Model 을 readingList 로 반환
             model.addAttribute("books", readingList);
             model.addAttribute("reader", reader);
+            model.addAttribute("amazonID", amazonProperties.getAssociateId());
         }
 
         return "readingList";

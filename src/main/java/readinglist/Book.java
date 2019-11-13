@@ -22,6 +22,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Reader reader;
+
     private String isbn;
 
     private String title;
@@ -30,5 +32,4 @@ public class Book {
 
     private String description;
 
-    private Reader reader;
 }

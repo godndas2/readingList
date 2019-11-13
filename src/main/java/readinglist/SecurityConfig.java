@@ -6,13 +6,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Configuration
 @EnableWebSecurity
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final ReaderRepository readerRepository;
+    private final ReaderRepository readerRepository;
 //    private final LoginAuthenticationProvider authenticationProvider;
 
     @Override
@@ -39,26 +42,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     * @since 2019-11-10
     * UserDetailsService 를 구현하고, 제공된 username 으로 사용자의 상세 정보를 조회함
     */
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(new UserDetailsService() {
-//
-//            @Override
-//            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//                // return readerRepository.findOne(username);
-//                return readerRepository.findById(username).get();
-//            }
-//        });
-//    }
-
-//     test 용도
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("halfdev")
-                .password("{noop}1234")
-                .roles("READER");
+        auth.userDetailsService(new UserDetailsService() {
+
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                // return readerRepository.findOne(username);
+                return readerRepository.findById(username).get();
+            }
+        });
     }
+
+//     test 용도
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("halfdev")
+//                .password("{noop}1234")
+//                .roles("READER");
+//    }
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) {

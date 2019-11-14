@@ -15,7 +15,7 @@
 
     <div th:unless="${#lists.isEmpty(books)}">
         <dl th:each="book : ${books}">
-
+            <!-- Amazon 추천 제휴 ID -->
             <dt class="bookHeadLine">
                 <a th:href="'http://www.amazon.com/gp/product/'
                 + ${book.isbn}

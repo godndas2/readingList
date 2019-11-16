@@ -17,12 +17,22 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+  profiles:
+    active: default
+
+# Actuator https://jeong-pro.tistory.com/160
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#      base-path: /application
+
 
 # 기본적으로 INFO 로 표시하고 Logback 으로 로깅을 설정한다.
 #  로깅 구성을 완전히 제어하려면 src/main/resources 에 logback.xml 생성
 
 ---
-
 # Profile Dev
 spring:
   output:
@@ -32,18 +42,17 @@ spring:
     active: dev
 
 logging:
-  pattern:
-    console: "%date  %highlight(%-5level) [%12.12thread] %cyan(%-40.40logger{40}) : %msg %n"
-    file: "%d %-5level [%thread] %logger : %msg%n"
+#  pattern:
+#    console: "%date  %highlight(%-5level) [%12.12thread] %cyan(%-40.40logger{40}) : %msg %n"
+#    file: "%d %-5level [%thread] %logger : %msg%n"
   level:
     root: WARN
-    org.springframework: DEBUG
-#    org.springframework.web: DEBUG
+#    org.springframework: DEBUG
+    org.springframework.web: INFO
     readinglist: DEBUG
     org.hibernate.SQL: DEBUG
 
 ---
-
 # Profile Prod
 spring:
   profiles:

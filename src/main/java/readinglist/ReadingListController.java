@@ -1,5 +1,9 @@
 package readinglist;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
@@ -21,11 +25,18 @@ public class ReadingListController {
 
     private ReadingListRepository readingListRepository;
     private AmazonProperties amazonProperties;
+    private Counter counter;
+//    private MeterRegistry meterRegistry;
+//    private Gauge gauge;
+
 
     @Autowired
-    public ReadingListController(ReadingListRepository readingListRepository, AmazonProperties amazonProperties) {
+    public ReadingListController(ReadingListRepository readingListRepository
+            , AmazonProperties amazonProperties
+            , MeterRegistry meterRegistry) {
         this.readingListRepository = readingListRepository;
         this.amazonProperties = amazonProperties;
+        counter = meterRegistry.counter("my.counter", "mytagname", "mytagvalue");
     }
 
     @RequestMapping(method = RequestMethod.GET)

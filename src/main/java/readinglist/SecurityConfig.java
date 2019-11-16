@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers("/").access("hasRole('READER')") // READER 권한 필요
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**"
+                ,"/application/**").permitAll()
 
                 .and()
 
